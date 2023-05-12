@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('livewire.landing');
 });
 
-Auth::routes();
+Route::get('/inventory', function () {
+    return view('home');
+})->name('inventory');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/pos', function () {
+    return view('livewire.sale-management');
+})->name('pos');
+
+
+Route::prefix('')->group(function () {
+    Route::get('/register', function () {
+        return view('livewire.client.register');})->name('client.register');
+    Route::get('/login', function () {
+        return view('livewire.client.login');})->name('client.login');
+});
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
